@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0E7786FE7346DFAE7156FA0D /* MLXHuggingFace in Frameworks */ = {isa = PBXBuildFile; productRef = D79C8E1B2D9BCB8FD0B98155 /* MLXHuggingFace */; };
+		4C0CAEAF1F47D86469F4D001 /* MLXEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E36798DA749954E0F2268E /* MLXEngine.swift */; };
 		57AF3DDF51C35A44A875CA4F /* ChatMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5646CB50AD9E4E4DF74E9BF1 /* ChatMessage.swift */; };
 		6AE7858122591B75F125EBDA /* HuggingFace in Frameworks */ = {isa = PBXBuildFile; productRef = C3A176B101FF08B815F20535 /* HuggingFace */; };
 		6C277AEB03083BF7B667D3EF /* MessageBubble.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE58B263057C5A6F98FEA679 /* MessageBubble.swift */; };
@@ -15,6 +16,7 @@
 		B2873109CAB85B0664F689B2 /* MLXLMCommon in Frameworks */ = {isa = PBXBuildFile; productRef = 391E3A038CC3178BCF8CA9BC /* MLXLMCommon */; };
 		B5CE4DFC76450D9E86895A7A /* ChatStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272B03533E734CE9D75F2BFD /* ChatStore.swift */; };
 		DAAC47E2FAC57EF3681AC363 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 89682A4822A92C4612CCF97E /* Assets.xcassets */; };
+		DAB59E1A4716504988A115D2 /* LLMEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47E2B62063C3DA96AE1DF759 /* LLMEngine.swift */; };
 		DD16A3FECBD15075E1347984 /* ClawdChatApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E42067BB9F1C98876F6E2AC6 /* ClawdChatApp.swift */; };
 		DD937F579CD95FFECE89394B /* Tokenizers in Frameworks */ = {isa = PBXBuildFile; productRef = C81BA1338E557AF9FD7670D7 /* Tokenizers */; };
 		F7B7E4CCE22B3FC6C8BA4D35 /* MLXLLM in Frameworks */ = {isa = PBXBuildFile; productRef = 082DE48650C16ECC37859462 /* MLXLLM */; };
@@ -23,6 +25,8 @@
 /* Begin PBXFileReference section */
 		0829F9A8A291B0EA8119F26D /* ClawdChat.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ClawdChat.entitlements; sourceTree = "<group>"; };
 		272B03533E734CE9D75F2BFD /* ChatStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatStore.swift; sourceTree = "<group>"; };
+		47E2B62063C3DA96AE1DF759 /* LLMEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LLMEngine.swift; sourceTree = "<group>"; };
+		55E36798DA749954E0F2268E /* MLXEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLXEngine.swift; sourceTree = "<group>"; };
 		5646CB50AD9E4E4DF74E9BF1 /* ChatMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMessage.swift; sourceTree = "<group>"; };
 		6CC4777FB298F7EE9C52B163 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		89682A4822A92C4612CCF97E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -69,6 +73,8 @@
 			isa = PBXGroup;
 			children = (
 				272B03533E734CE9D75F2BFD /* ChatStore.swift */,
+				47E2B62063C3DA96AE1DF759 /* LLMEngine.swift */,
+				55E36798DA749954E0F2268E /* MLXEngine.swift */,
 			);
 			path = LLM;
 			sourceTree = "<group>";
@@ -188,6 +194,8 @@
 				B5CE4DFC76450D9E86895A7A /* ChatStore.swift in Sources */,
 				A27FDF59CB65D1FE7D970A7E /* ChatView.swift in Sources */,
 				DD16A3FECBD15075E1347984 /* ClawdChatApp.swift in Sources */,
+				DAB59E1A4716504988A115D2 /* LLMEngine.swift in Sources */,
+				4C0CAEAF1F47D86469F4D001 /* MLXEngine.swift in Sources */,
 				6C277AEB03083BF7B667D3EF /* MessageBubble.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

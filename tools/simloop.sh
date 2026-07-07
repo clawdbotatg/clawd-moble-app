@@ -27,9 +27,13 @@ print(match[0] if match else phones[-1][1])
 ')
 echo "simulator: $UDID"
 
+# -skipPackagePluginValidation / -skipMacroValidation: headless xcodebuild
+# can't show the "trust this plugin/macro?" prompt (mlx-swift's CudaBuild
+# plugin, swift-huggingface's #huggingFaceLoadModelContainer macro).
 xcodebuild -project ClawdChat.xcodeproj -scheme ClawdChat \
   -destination "platform=iOS Simulator,id=$UDID" \
   -derivedDataPath build \
+  -skipPackagePluginValidation -skipMacroValidation \
   -quiet build
 
 xcrun simctl bootstatus "$UDID" -b   # boots if needed, waits until ready
