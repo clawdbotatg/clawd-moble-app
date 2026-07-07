@@ -17,11 +17,12 @@ final class MLXEngine: LLMEngine {
     /// Swap the model by pointing at any entry in `LLMRegistry` (text-only),
     /// `VLMRegistry` (vision), or any mlx-community repo id — linking MLXVLM
     /// makes the shared loader route vision models automatically.
-    /// Qwen3-VL-8B-4bit (~4.7 GB) is about the best brain+vision combo a
-    /// 12 GB iPhone Pro fits; `VLMRegistry.qwen3VL4BInstruct4Bit` is the
-    /// half-size, roughly-2x-faster fallback.
-    private static let model = ModelConfiguration(
-        id: "mlx-community/Qwen3-VL-8B-Instruct-4bit")
+    /// Qwen3-VL-8B-4bit (5.8 GB of weights) LOADS on a 12 GB iPhone 17 Pro but
+    /// jetsam SIGKILLs it as soon as generation starts (prefill + KV cache +
+    /// vision tower overflow the per-app budget, even with the
+    /// increased-memory-limit entitlement) — verified on device 2026-07-07.
+    /// 4B is the real ceiling for phones today.
+    private static let model = VLMRegistry.qwen3VL4BInstruct4Bit
 
     private static var instructions: String {
         """
