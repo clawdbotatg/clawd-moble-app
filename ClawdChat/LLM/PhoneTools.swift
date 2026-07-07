@@ -166,10 +166,13 @@ enum PhoneTools {
 
     enum ToolFailure: LocalizedError {
         case denied(String)
+        case bad(String)
         var errorDescription: String? {
             switch self {
             case .denied(let source):
                 "The user has not granted access to \(source). They can enable it in Settings."
+            case .bad(let reason):
+                reason
             }
         }
     }

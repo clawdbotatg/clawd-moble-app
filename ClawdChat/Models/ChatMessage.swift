@@ -1,4 +1,5 @@
 import Foundation
+import UIKit
 
 struct ChatMessage: Identifiable, Equatable {
     enum Role {
@@ -9,6 +10,15 @@ struct ChatMessage: Identifiable, Equatable {
     let id = UUID()
     let role: Role
     var text: String
+    /// Photo the user attached (camera or library), shown in the bubble and
+    /// sent to the vision model.
+    var image: UIImage?
+
+    init(role: Role, text: String, image: UIImage? = nil) {
+        self.role = role
+        self.text = text
+        self.image = image
+    }
 
     /// Qwen 3.x models can emit `<think>…</think>` reasoning blocks before the
     /// answer. Strip them for display; an unclosed tag means it is still thinking.

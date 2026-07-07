@@ -26,6 +26,8 @@ targets:
       - package: mlx-swift-lm
         product: MLXLLM
       - package: mlx-swift-lm
+        product: MLXVLM
+      - package: mlx-swift-lm
         product: MLXLMCommon
       - package: mlx-swift-lm
         product: MLXHuggingFace
@@ -53,6 +55,17 @@ targets:
           Voice input: dictate messages to the assistant instead of typing.
         NSSpeechRecognitionUsageDescription: >-
           Transcribes your voice to text entirely on this device.
+        NSCameraUsageDescription: >-
+          Take a photo to ask the on-device assistant about it. Photos never
+          leave your phone.
+        NSLocationWhenInUseUsageDescription: >-
+          Lets the on-device assistant answer questions about where you are and
+          the weather. Location never leaves your phone (weather lookups send
+          only coordinates to open-meteo.com).
+        NSRemindersFullAccessUsageDescription: >-
+          Lets the on-device assistant read and create reminders when you ask.
+        NSMotionUsageDescription: >-
+          Lets the on-device assistant answer questions about your step count.
     entitlements:
       path: ClawdChat/ClawdChat.entitlements
       properties:

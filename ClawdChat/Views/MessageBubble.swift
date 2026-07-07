@@ -7,15 +7,22 @@ struct MessageBubble: View {
         HStack {
             if message.role == .user { Spacer(minLength: 48) }
 
-            Group {
+            VStack(alignment: .leading, spacing: 8) {
+                if let image = message.image {
+                    Image(uiImage: image)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(maxHeight: 220)
+                        .clipShape(RoundedRectangle(cornerRadius: 12))
+                }
                 if message.isThinking && message.displayText.isEmpty {
                     HStack(spacing: 6) {
                         ProgressView().controlSize(.small)
                         Text("Thinking…").foregroundStyle(.secondary)
                     }
-                } else if message.displayText.isEmpty {
+                } else if message.displayText.isEmpty && message.image == nil {
                     ProgressView().controlSize(.small)
-                } else {
+                } else if !message.displayText.isEmpty {
                     Text(message.displayText)
                         .textSelection(.enabled)
                 }

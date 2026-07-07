@@ -24,10 +24,18 @@
 	<false/>
 	<key>NSCalendarsFullAccessUsageDescription</key>
 	<string>Lets the on-device assistant read your upcoming calendar events when you ask it to. Calendar data never leaves your phone.</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Take a photo to ask the on-device assistant about it. Photos never leave your phone.</string>
 	<key>NSContactsUsageDescription</key>
 	<string>Lets the on-device assistant look up your contacts when you ask it to. Contact data never leaves your phone.</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Lets the on-device assistant answer questions about where you are and the weather. Location never leaves your phone (weather lookups send only coordinates to open-meteo.com).</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>Voice input: dictate messages to the assistant instead of typing.</string>
+	<key>NSMotionUsageDescription</key>
+	<string>Lets the on-device assistant answer questions about your step count.</string>
+	<key>NSRemindersFullAccessUsageDescription</key>
+	<string>Lets the on-device assistant read and create reminders when you ask.</string>
 	<key>NSSpeechRecognitionUsageDescription</key>
 	<string>Transcribes your voice to text entirely on this device.</string>
 	<key>UILaunchScreen</key>

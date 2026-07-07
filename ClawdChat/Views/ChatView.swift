@@ -1,3 +1,4 @@
+import PhotosUI
 import SwiftUI
 
 struct ChatView: View {
@@ -5,6 +6,11 @@ struct ChatView: View {
     @State private var draft = ""
     @State private var speech = SpeechRecognizer()
     @State private var draftBeforeDictation = ""
+    @State private var pendingImage: UIImage?
+    @State private var showCamera = false
+    @State private var showPhotoPicker = false
+    @State private var photoItem: PhotosPickerItem?
+    @State private var downloadStartedAt: Date?
     @FocusState private var inputFocused: Bool
 
     var body: some View {
@@ -32,6 +38,22 @@ struct ChatView: View {
             }
         }
         .task { await store.loadModel() }
+        .fullScreenCover(isPresented: $showCamera) {
+            CameraPicker { pendingImage = $0 }
+                .ignoresSafeArea()
+        }
+        .photosPicker(isPresented: $showPhotoPicker, selection: $photoItem, matching: .images)
+        .onChange(of: photoItem) {
+            guard let photoItem else { return }
+            Task {
+                if let data = try? await photoItem.loadTransferable(type: Data.self),
+                    let image = UIImage(data: data)
+                {
+                    pendingImage = image
+                }
+                self.photoItem = nil
+            }
+        }
     }
 
     private var messageList: some View {
@@ -71,7 +93,45 @@ struct ChatView: View {
     }
 
     private var composer: some View {
+        VStack(spacing: 6) {
+            if let pendingImage {
+                HStack {
+                    Image(uiImage: pendingImage)
+                        .resizable()
+                        .scaledToFill()
+                        .frame(width: 64, height: 64)
+                        .clipShape(RoundedRectangle(cornerRadius: 10))
+                        .overlay(alignment: .topTrailing) {
+                            Button {
+                                self.pendingImage = nil
+                            } label: {
+                                Image(systemName: "xmark.circle.fill")
+                                    .foregroundStyle(.white, .black.opacity(0.6))
+                            }
+                            .offset(x: 6, y: -6)
+                        }
+                    Spacer()
+                }
+                .padding(.horizontal)
+            }
+            composerRow
+        }
+        .padding(.vertical, 8)
+        .background(.bar)
+    }
+
+    private var composerRow: some View {
         HStack(alignment: .bottom, spacing: 8) {
+            Menu {
+                Button("Take Photo", systemImage: "camera") { showCamera = true }
+                Button("Photo Library", systemImage: "photo.on.rectangle") {
+                    showPhotoPicker = true
+                }
+            } label: {
+                Image(systemName: "plus.circle")
+                    .font(.title)
+            }
+
             TextField(speech.isRecording ? "Listening…" : "Message", text: $draft, axis: .vertical)
                 .lineLimit(1...5)
                 .padding(.horizontal, 12)
@@ -104,43 +164,55 @@ struct ChatView: View {
             } else {
                 Button {
                     if speech.isRecording { speech.stop() }
-                    store.send(draft)
+                    store.send(draft, image: pendingImage)
                     draft = ""
+                    pendingImage = nil
                 } label: {
                     Image(systemName: "arrow.up.circle.fill")
                         .font(.title)
                 }
-                .disabled(draft.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
+                .disabled(
+                    draft.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+                        && pendingImage == nil)
             }
         }
         .padding(.horizontal)
-        .padding(.vertical, 8)
-        .background(.bar)
     }
 
     private var loadingScreen: some View {
         VStack(spacing: 16) {
             Spacer()
-            if case .downloading(let fraction) = store.modelState, fraction > 0 {
-                ProgressView(value: fraction) {
-                    Text(fraction < 1 ? "Downloading model…" : "Preparing model…")
+            TimelineView(.periodic(from: .now, by: 0.25)) { context in
+                // The weights are one giant file, so the real byte fraction can
+                // sit still for minutes. Sweep to 90% over the first minute and
+                // crawl after; the real fraction wins whenever it's ahead.
+                let real: Double =
+                    if case .downloading(let fraction) = store.modelState {
+                        fraction
+                    } else { 0 }
+                let elapsed =
+                    downloadStartedAt.map { context.date.timeIntervalSince($0) } ?? 0
+                let sweep =
+                    elapsed < 60
+                    ? elapsed / 60 * 0.90
+                    : 0.90 + min((elapsed - 60) / 300, 1) * 0.09
+                let displayed = min(max(real, sweep), 0.99)
+                ProgressView(value: displayed) {
+                    Text("Downloading model…")
                 } currentValueLabel: {
-                    Text("\(Int(fraction * 100))% of \(store.modelName)")
+                    Text("\(Int(displayed * 100))% of \(store.modelName)")
                 }
                 .padding(.horizontal, 40)
-                Text(
-                    "One-time download — after this, everything runs offline.\n"
-                        + "Most of the model is a single large file, so the percentage "
-                        + "can sit still for a long stretch while it downloads. Hang tight."
-                )
+            }
+            Text("One-time download — after this, everything runs offline.")
                 .font(.footnote)
                 .foregroundStyle(.secondary)
                 .multilineTextAlignment(.center)
                 .padding(.horizontal, 32)
-            } else {
-                ProgressView("Preparing model…")
-            }
             Spacer()
+        }
+        .onAppear {
+            if downloadStartedAt == nil { downloadStartedAt = Date() }
         }
     }
 

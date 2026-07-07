@@ -1,3 +1,4 @@
+import CoreImage
 import Foundation
 
 /// Abstraction over the text-generation backend so the app runs everywhere:
@@ -12,7 +13,8 @@ protocol LLMEngine {
     /// Drop conversation history (new chat).
     func reset()
     /// Stream a reply to `prompt`, continuing the current conversation.
-    func respond(to prompt: String) -> AsyncThrowingStream<String, Error>
+    /// `image` attaches a photo for vision models.
+    func respond(to prompt: String, image: CIImage?) -> AsyncThrowingStream<String, Error>
 }
 
 /// Simulator/test stand-in: fakes a short download, then streams a canned
@@ -30,9 +32,10 @@ final class MockEngine: LLMEngine {
 
     func reset() {}
 
-    func respond(to prompt: String) -> AsyncThrowingStream<String, Error> {
+    func respond(to prompt: String, image: CIImage?) -> AsyncThrowingStream<String, Error> {
         let reply =
             "<think>The user said: \(prompt). I should reply.</think>" +
+            (image != nil ? "I can see you attached an image (mock — no vision in the simulator). " : "") +
             "This is the mock simulator engine (MLX needs a real device's GPU). " +
             "You said: “\(prompt)”. On an iPhone this would be Qwen replying token by token."
         return AsyncThrowingStream { continuation in

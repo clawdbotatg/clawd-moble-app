@@ -48,18 +48,20 @@ final class ChatStore {
         }
     }
 
-    func send(_ text: String) {
+    func send(_ text: String, image: UIImage? = nil) {
         let trimmed = text.trimmingCharacters(in: .whitespacesAndNewlines)
-        guard modelState == .ready, !isGenerating, !trimmed.isEmpty else { return }
+        guard modelState == .ready, !isGenerating, !trimmed.isEmpty || image != nil else { return }
+        let prompt = trimmed.isEmpty ? "What's in this image?" : trimmed
 
-        messages.append(ChatMessage(role: .user, text: trimmed))
+        messages.append(ChatMessage(role: .user, text: prompt, image: image))
         messages.append(ChatMessage(role: .assistant, text: ""))
         let index = messages.count - 1
         isGenerating = true
+        let ciImage = image.flatMap { CIImage(image: $0) }
 
         generationTask = Task {
             do {
-                for try await chunk in engine.respond(to: trimmed) {
+                for try await chunk in engine.respond(to: prompt, image: ciImage) {
                     messages[index].text += chunk
                 }
             } catch is CancellationError {
