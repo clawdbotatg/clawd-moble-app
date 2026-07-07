@@ -313,8 +313,13 @@ enum MoreTools {
 
 /// One-shot location fetch that owns the permission-dialog dance:
 /// request authorization if undetermined, then a single location fix.
-final class LocationOnce: NSObject, CLLocationManagerDelegate, @unchecked Sendable {
-    private let manager = CLLocationManager()
+/// @MainActor is load-bearing: CLLocationManager delivers delegate callbacks
+/// on the thread that created it, and only the main thread has a run loop —
+/// created on a Task executor thread, the callbacks never fire and the tool
+/// hangs forever (verified on device 2026-07-07).
+@MainActor
+final class LocationOnce: NSObject, CLLocationManagerDelegate {
+    private var manager: CLLocationManager!
     private var continuation: CheckedContinuation<CLLocation, Error>?
 
     static func request() async throws -> CLLocation {
@@ -322,7 +327,8 @@ final class LocationOnce: NSObject, CLLocationManagerDelegate, @unchecked Sendab
     }
 
     private func run() async throws -> CLLocation {
-        try await withCheckedThrowingContinuation { continuation in
+        manager = CLLocationManager()
+        return try await withCheckedThrowingContinuation { continuation in
             self.continuation = continuation
             manager.delegate = self
             manager.desiredAccuracy = kCLLocationAccuracyHundredMeters

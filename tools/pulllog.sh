@@ -9,5 +9,5 @@ DEST=$(mktemp -d)
 export DEVELOPER_DIR="${DEVELOPER_DIR:-/Applications/Xcode.app/Contents/Developer}"
 xcrun devicectl device copy from --device "$UDID" \
   --domain-type appDataContainer --domain-identifier com.clawd.chat \
-  --source Documents/clawdchat.log --destination "$DEST" --quiet
+  --source Documents/clawdchat.log --destination "$DEST/clawdchat.log" --quiet
 cat "$DEST/clawdchat.log"

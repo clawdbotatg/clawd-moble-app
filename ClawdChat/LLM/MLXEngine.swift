@@ -55,6 +55,13 @@ final class MLXEngine: LLMEngine {
 
     private var container: ModelContainer?
     private var session: ChatSession?
+    /// Conversation so far (user + assistant turns, think-blocks stripped).
+    /// Kept here because each turn runs in a FRESH ChatSession — reusing a
+    /// session's KV cache across turns is broken for Qwen3-VL in
+    /// mlx-swift-lm 3.31.4 (turn 2+ hangs or emits corrupted text, verified
+    /// on device 2026-07-07); replaying history costs a short prefill and
+    /// stays correct.
+    private var history: [Chat.Message] = []
 
     var modelName: String { Self.model.name }
 
@@ -82,8 +89,13 @@ final class MLXEngine: LLMEngine {
     }
 
     func reset() {
-        guard let container else { return }
-        session = ChatSession(
+        history = []
+        session = nil
+    }
+
+    /// One fresh ChatSession per turn (see `history` comment).
+    private func makeSession(_ container: ModelContainer) -> ChatSession {
+        ChatSession(
             container,
             instructions: Self.instructions,
             // Qwen's recommended sampling for instruct models; the repetition
@@ -98,41 +110,83 @@ final class MLXEngine: LLMEngine {
             tools: PhoneTools.specs + WebTools.specs + MoreTools.specs,
             toolDispatch: { call in
                 DebugLog.log("tool call: \(call.function.name) args: \(call.function.arguments)")
-                let result: String
-                if let webResult = await WebTools.dispatch(call) {
-                    result = webResult
-                } else if let moreResult = await MoreTools.dispatch(call) {
-                    result = moreResult
-                } else {
-                    result = await PhoneTools.dispatch(call)
-                }
+                // A stuck tool must never hang the whole reply (the model
+                // waits on this result), so every tool races a 30s deadline.
+                let result = await Self.withDeadline(seconds: 30) {
+                    if let webResult = await WebTools.dispatch(call) { return webResult }
+                    if let moreResult = await MoreTools.dispatch(call) { return moreResult }
+                    return await PhoneTools.dispatch(call)
+                } ?? #"{"error": "tool timed out after 30 seconds"}"#
                 DebugLog.log("tool result: \(result.prefix(300))")
                 return result
             }
         )
     }
 
+    private static func withDeadline(
+        seconds: Double, _ body: @escaping @Sendable () async -> String
+    ) async -> String? {
+        await withTaskGroup(of: String?.self) { group in
+            group.addTask { await body() }
+            group.addTask {
+                try? await Task.sleep(for: .seconds(seconds))
+                return nil
+            }
+            let first = await group.next() ?? nil
+            group.cancelAll()
+            return first
+        }
+    }
+
     func respond(to prompt: String, image: CIImage?) -> AsyncThrowingStream<String, Error> {
-        guard let session else {
+        guard let container else {
             return AsyncThrowingStream { $0.finish(throwing: EngineError.notLoaded) }
         }
-        let upstream = session.streamResponse(to: prompt, image: image.map { .ciImage($0) })
-        // Debug tap: log raw chunks so `devicectl … launch --console` shows
-        // exactly what the model emits (special tokens, tool-call syntax, …).
+        let session = makeSession(container)
+        self.session = session
+
+        let userMessage = Chat.Message.user(
+            prompt, images: image.map { [.ciImage($0)] } ?? [])
+        let turn = history + [userMessage]
+        DebugLog.log("turn start (history: \(history.count) msgs)")
+        let upstream = session.streamResponse(to: turn)
+
+        // Tap the stream: log raw chunks for debugging, and on completion
+        // fold the exchange into `history` for the next turn's replay.
         return AsyncThrowingStream { continuation in
-            Task {
+            Task { @MainActor in
+                var reply = ""
                 do {
                     for try await chunk in upstream {
                         DebugLog.log("chunk: \(chunk.debugDescription)")
+                        reply += chunk
                         continuation.yield(chunk)
                     }
+                    self.commit(user: userMessage, reply: reply)
                     continuation.finish()
                 } catch {
                     DebugLog.log("stream error: \(error)")
+                    if !reply.isEmpty { self.commit(user: userMessage, reply: reply) }
                     continuation.finish(throwing: error)
                 }
             }
         }
+    }
+
+    /// Append a finished exchange to the replayed history. Think-blocks are
+    /// dropped (Qwen convention: prior-turn reasoning is not replayed).
+    private func commit(user: Chat.Message, reply: String) {
+        var text = reply
+        while let start = text.range(of: "<think>") {
+            guard let end = text.range(of: "</think>", range: start.upperBound..<text.endIndex)
+            else {
+                text.removeSubrange(start.lowerBound..<text.endIndex)
+                break
+            }
+            text.removeSubrange(start.lowerBound..<end.upperBound)
+        }
+        history.append(user)
+        history.append(.assistant(text.trimmingCharacters(in: .whitespacesAndNewlines)))
     }
 
     enum EngineError: LocalizedError {
