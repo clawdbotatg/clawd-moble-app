@@ -1,11 +1,21 @@
-# Clawd Chat — an LLM in your pocket
+# Clawd Chat — a private AI agent in your pocket
 
-A minimal iOS chat app that runs an open-source model **entirely on-device**.
-No API keys, no server: the app downloads
-[`mlx-community/Qwen3.5-2B-4bit`](https://huggingface.co/mlx-community/Qwen3.5-2B-4bit)
-(~1.2 GB) from Hugging Face on first launch, then all inference happens on the
+An iOS chat app that runs an open-source **vision-language model entirely
+on-device**. No API keys, no server: the app downloads
+[`mlx-community/Qwen3-VL-8B-Instruct-4bit`](https://huggingface.co/mlx-community/Qwen3-VL-8B-Instruct-4bit)
+(~4.7 GB) from Hugging Face on first launch, then all inference happens on the
 iPhone's GPU via [MLX Swift](https://github.com/ml-explore/mlx-swift-lm).
-Airplane mode works fine after the first run.
+Airplane mode works fine after the first run (web tools excepted).
+
+Beyond chat, the model is an **agent on your phone**:
+
+- **Vision** — attach a camera shot or library photo (`+` in the composer)
+  and ask about it; the model looks at it locally.
+- **Voice** — mic button, on-device speech-to-text (audio never leaves).
+- **Tools** the model calls on its own, with iOS asking your permission the
+  first time each is touched: contacts, calendar (read + create), reminders
+  (read + create), location, weather, step counts, clipboard, battery/date,
+  web search (keyless DuckDuckGo), and web page reading.
 
 ## Stack
 
@@ -54,10 +64,9 @@ the CLI too.
 Edit `MLXEngine.model` in `ClawdChat/LLM/MLXEngine.swift`:
 
 ```swift
-static let model = LLMRegistry.qwen3_5_2b_4bit      // default
-// static let model = LLMRegistry.qwen3_0_6b_4bit   // tiny + fast, older phones
-// static let model = LLMRegistry.qwen3_4b_4bit     // smarter, needs a Pro-class phone
-// static let model = ModelConfiguration(id: "mlx-community/Llama-3.2-3B-Instruct-4bit")
+static let model = ModelConfiguration(id: "mlx-community/Qwen3-VL-8B-Instruct-4bit")  // default: best fit for 12 GB phones
+// static let model = VLMRegistry.qwen3VL4BInstruct4Bit   // half the size, ~2x faster, still vision+tools
+// static let model = LLMRegistry.qwen3_4b_4bit           // text-only
 ```
 
 Any 4-bit MLX model on the [mlx-community](https://huggingface.co/mlx-community)
