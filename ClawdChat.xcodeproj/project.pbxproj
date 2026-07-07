@@ -1,0 +1,438 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		0E7786FE7346DFAE7156FA0D /* MLXHuggingFace in Frameworks */ = {isa = PBXBuildFile; productRef = D79C8E1B2D9BCB8FD0B98155 /* MLXHuggingFace */; };
+		57AF3DDF51C35A44A875CA4F /* ChatMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5646CB50AD9E4E4DF74E9BF1 /* ChatMessage.swift */; };
+		6AE7858122591B75F125EBDA /* HuggingFace in Frameworks */ = {isa = PBXBuildFile; productRef = C3A176B101FF08B815F20535 /* HuggingFace */; };
+		6C277AEB03083BF7B667D3EF /* MessageBubble.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE58B263057C5A6F98FEA679 /* MessageBubble.swift */; };
+		A27FDF59CB65D1FE7D970A7E /* ChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E225C892F820A77946108EFF /* ChatView.swift */; };
+		B2873109CAB85B0664F689B2 /* MLXLMCommon in Frameworks */ = {isa = PBXBuildFile; productRef = 391E3A038CC3178BCF8CA9BC /* MLXLMCommon */; };
+		B5CE4DFC76450D9E86895A7A /* ChatStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272B03533E734CE9D75F2BFD /* ChatStore.swift */; };
+		DAAC47E2FAC57EF3681AC363 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 89682A4822A92C4612CCF97E /* Assets.xcassets */; };
+		DD16A3FECBD15075E1347984 /* ClawdChatApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E42067BB9F1C98876F6E2AC6 /* ClawdChatApp.swift */; };
+		DD937F579CD95FFECE89394B /* Tokenizers in Frameworks */ = {isa = PBXBuildFile; productRef = C81BA1338E557AF9FD7670D7 /* Tokenizers */; };
+		F7B7E4CCE22B3FC6C8BA4D35 /* MLXLLM in Frameworks */ = {isa = PBXBuildFile; productRef = 082DE48650C16ECC37859462 /* MLXLLM */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		0829F9A8A291B0EA8119F26D /* ClawdChat.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ClawdChat.entitlements; sourceTree = "<group>"; };
+		272B03533E734CE9D75F2BFD /* ChatStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatStore.swift; sourceTree = "<group>"; };
+		5646CB50AD9E4E4DF74E9BF1 /* ChatMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMessage.swift; sourceTree = "<group>"; };
+		6CC4777FB298F7EE9C52B163 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		89682A4822A92C4612CCF97E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		A83402E4261F42B343D84C8A /* ClawdChat.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = ClawdChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		AE58B263057C5A6F98FEA679 /* MessageBubble.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageBubble.swift; sourceTree = "<group>"; };
+		E225C892F820A77946108EFF /* ChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatView.swift; sourceTree = "<group>"; };
+		E42067BB9F1C98876F6E2AC6 /* ClawdChatApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClawdChatApp.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		CCAA8DD87D5FAF9A73B95258 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F7B7E4CCE22B3FC6C8BA4D35 /* MLXLLM in Frameworks */,
+				B2873109CAB85B0664F689B2 /* MLXLMCommon in Frameworks */,
+				0E7786FE7346DFAE7156FA0D /* MLXHuggingFace in Frameworks */,
+				6AE7858122591B75F125EBDA /* HuggingFace in Frameworks */,
+				DD937F579CD95FFECE89394B /* Tokenizers in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		1C7B7E71007E6340C941B180 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				E225C892F820A77946108EFF /* ChatView.swift */,
+				AE58B263057C5A6F98FEA679 /* MessageBubble.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		4F05E42CB7CA2B9F59DB1546 = {
+			isa = PBXGroup;
+			children = (
+				D852F397566D62C3689586BA /* ClawdChat */,
+				97E44370385928E2F32D6682 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		55CD46338CCA5F587768A360 /* LLM */ = {
+			isa = PBXGroup;
+			children = (
+				272B03533E734CE9D75F2BFD /* ChatStore.swift */,
+			);
+			path = LLM;
+			sourceTree = "<group>";
+		};
+		85F41EEB0BB61BC81BAACEF2 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				5646CB50AD9E4E4DF74E9BF1 /* ChatMessage.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		97E44370385928E2F32D6682 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				A83402E4261F42B343D84C8A /* ClawdChat.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		D852F397566D62C3689586BA /* ClawdChat */ = {
+			isa = PBXGroup;
+			children = (
+				89682A4822A92C4612CCF97E /* Assets.xcassets */,
+				0829F9A8A291B0EA8119F26D /* ClawdChat.entitlements */,
+				E42067BB9F1C98876F6E2AC6 /* ClawdChatApp.swift */,
+				6CC4777FB298F7EE9C52B163 /* Info.plist */,
+				55CD46338CCA5F587768A360 /* LLM */,
+				85F41EEB0BB61BC81BAACEF2 /* Models */,
+				1C7B7E71007E6340C941B180 /* Views */,
+			);
+			path = ClawdChat;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		573425E59C8520B7D8531830 /* ClawdChat */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AE3F6686D632C34F07904688 /* Build configuration list for PBXNativeTarget "ClawdChat" */;
+			buildPhases = (
+				09EA311DA1601D8B82148749 /* Sources */,
+				D5DA18B64F6B410797A0C414 /* Resources */,
+				CCAA8DD87D5FAF9A73B95258 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ClawdChat;
+			packageProductDependencies = (
+				082DE48650C16ECC37859462 /* MLXLLM */,
+				391E3A038CC3178BCF8CA9BC /* MLXLMCommon */,
+				D79C8E1B2D9BCB8FD0B98155 /* MLXHuggingFace */,
+				C3A176B101FF08B815F20535 /* HuggingFace */,
+				C81BA1338E557AF9FD7670D7 /* Tokenizers */,
+			);
+			productName = ClawdChat;
+			productReference = A83402E4261F42B343D84C8A /* ClawdChat.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		448512E0D4F9D18390B11E56 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1430;
+				TargetAttributes = {
+					573425E59C8520B7D8531830 = {
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = 35DDE3296102EB061025856A /* Build configuration list for PBXProject "ClawdChat" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = 4F05E42CB7CA2B9F59DB1546;
+			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				F88F9216C06500AB1A2C1F3E /* XCRemoteSwiftPackageReference "mlx-swift-lm" */,
+				467C1F8B0CB3D9264E6C7726 /* XCRemoteSwiftPackageReference "swift-huggingface" */,
+				D7B49A76FCF236EB187D8BBC /* XCRemoteSwiftPackageReference "swift-transformers" */,
+			);
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 97E44370385928E2F32D6682 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				573425E59C8520B7D8531830 /* ClawdChat */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		D5DA18B64F6B410797A0C414 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DAAC47E2FAC57EF3681AC363 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		09EA311DA1601D8B82148749 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				57AF3DDF51C35A44A875CA4F /* ChatMessage.swift in Sources */,
+				B5CE4DFC76450D9E86895A7A /* ChatStore.swift in Sources */,
+				A27FDF59CB65D1FE7D970A7E /* ChatView.swift in Sources */,
+				DD16A3FECBD15075E1347984 /* ClawdChatApp.swift in Sources */,
+				6C277AEB03083BF7B667D3EF /* MessageBubble.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		081818DDC963AD263031F971 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		109C51CC262ABC87F82B5E5B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		3CAF3D0039267A42A65F404A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = ClawdChat/ClawdChat.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				INFOPLIST_FILE = ClawdChat/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 0.1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.clawd.chat;
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		745C0D82AC8F18588DDEDAA5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = ClawdChat/ClawdChat.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				INFOPLIST_FILE = ClawdChat/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 0.1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.clawd.chat;
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		35DDE3296102EB061025856A /* Build configuration list for PBXProject "ClawdChat" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				081818DDC963AD263031F971 /* Debug */,
+				109C51CC262ABC87F82B5E5B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		AE3F6686D632C34F07904688 /* Build configuration list for PBXNativeTarget "ClawdChat" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				745C0D82AC8F18588DDEDAA5 /* Debug */,
+				3CAF3D0039267A42A65F404A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		467C1F8B0CB3D9264E6C7726 /* XCRemoteSwiftPackageReference "swift-huggingface" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/huggingface/swift-huggingface";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.9.0;
+			};
+		};
+		D7B49A76FCF236EB187D8BBC /* XCRemoteSwiftPackageReference "swift-transformers" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/huggingface/swift-transformers";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.3.0;
+			};
+		};
+		F88F9216C06500AB1A2C1F3E /* XCRemoteSwiftPackageReference "mlx-swift-lm" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ml-explore/mlx-swift-lm";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.31.3;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		082DE48650C16ECC37859462 /* MLXLLM */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F88F9216C06500AB1A2C1F3E /* XCRemoteSwiftPackageReference "mlx-swift-lm" */;
+			productName = MLXLLM;
+		};
+		391E3A038CC3178BCF8CA9BC /* MLXLMCommon */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F88F9216C06500AB1A2C1F3E /* XCRemoteSwiftPackageReference "mlx-swift-lm" */;
+			productName = MLXLMCommon;
+		};
+		C3A176B101FF08B815F20535 /* HuggingFace */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 467C1F8B0CB3D9264E6C7726 /* XCRemoteSwiftPackageReference "swift-huggingface" */;
+			productName = HuggingFace;
+		};
+		C81BA1338E557AF9FD7670D7 /* Tokenizers */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D7B49A76FCF236EB187D8BBC /* XCRemoteSwiftPackageReference "swift-transformers" */;
+			productName = Tokenizers;
+		};
+		D79C8E1B2D9BCB8FD0B98155 /* MLXHuggingFace */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F88F9216C06500AB1A2C1F3E /* XCRemoteSwiftPackageReference "mlx-swift-lm" */;
+			productName = MLXHuggingFace;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = 448512E0D4F9D18390B11E56 /* Project object */;
+}
