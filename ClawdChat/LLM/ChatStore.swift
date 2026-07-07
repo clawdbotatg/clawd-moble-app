@@ -1,4 +1,5 @@
 import Foundation
+import UIKit
 
 /// Owns the model lifecycle (download → load → chat) and the message list
 /// the UI renders. The actual generation backend is an `LLMEngine`:
@@ -33,6 +34,10 @@ final class ChatStore {
     func loadModel() async {
         guard modelState != .ready else { return }
         modelState = .downloading(0)
+        // If the screen auto-locks mid-download iOS suspends the app and the
+        // download stalls, so keep the screen awake until the model is ready.
+        UIApplication.shared.isIdleTimerDisabled = true
+        defer { UIApplication.shared.isIdleTimerDisabled = false }
         do {
             try await engine.load { fraction in
                 self.modelState = .downloading(fraction)
